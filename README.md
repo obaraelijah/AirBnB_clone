@@ -1,6 +1,6 @@
 # Description of the project
 
-The ALX B&B sums up the implementation of my 5 months of studies at the ALX - the fullstack software engineering program. The goal of the project is to deploy a replica of the Airbnb Website using my server. The final version of this project will have:
+The ALX B&B sums up the implementation of 5 months of studies at the ALX - the fullstack software engineering program. The goal of the project is to deploy a replica of the Airbnb Website using my server. The final version of this project will have:
 
 - A command interpreter to manipulate data without a visual interface, like a shell (for development and debugging)
 - A website (front-end) with static and dynamic functionalities
@@ -82,4 +82,4 @@ $
 ```
 # Authors
 - [Elijah Obara Samson](https://www.github.com/obaraelijah)
-- John Musyomi
+- [John Musyomi](https://www.github.com/johnmusyomi)
