@@ -45,6 +45,17 @@ The first phase is to manipulate a powerful storage system to give an abstractio
 Manage (create, update, destroy, etc) objects via a console/command interpreter
 - Store and persist objects to files (JSON files). 
 
+## Description of the command interpreter
+| Commands      | Description |
+| ------------- | ------------- |
+| `quit`        | Quits the console |
+| `Ctrl+D`  | Quits the console  |
+|   `help` or `help <command>`|Displays all commands or Displays instructions for a specific command|
+|  `create <class> `|Creates an object of type , saves it to a JSON file, and prints the objects ID|
+|    `destroy <class> <ID>`|   Deletes objects |       |                
+|  `<class>.count()  `|    Retrieves the number of objects of a certain class|        |   `<class>.update(<ID>`, `<dictionary representation>)` |  Updates an objects based on a dictionary representation of attribute names and values 
+|    `show <class> <ID>`|   Shows string representation of an object|
+|    `update <class> <id>` `<attribute name> ` `<attribute value>` |Updates an object with a certain attribute (new or existing)|
 ## General Execution
 Your shell should work like this in interactive mode:
 ```
