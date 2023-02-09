@@ -71,6 +71,6 @@ class FileStorage:
         else:
             print("The file does not exist")
             
-        """uses the json.loads function to parse the contents of "js_str" into a dictionary and store it in the "__objects" instance variable. This effectively reloads the deserialized data into the "__objects" dictionary
+        """uses the json.loads function  parse the contents of "js_str" into a dictionary and store it in the "__objects" instance variable. This effectively reloads the deserialized data into the "__objects" dictionary
         """
         
