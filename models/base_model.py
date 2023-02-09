@@ -4,7 +4,7 @@ This is the model that provides the base class
 """
 import uuid
 from datetime import datetime
-from models.engine.files_storage import FileStorage
+from models.engine.file_storage import FileStorage
 
 storage = FileStorage()
 

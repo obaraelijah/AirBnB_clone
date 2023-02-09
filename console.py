@@ -5,7 +5,7 @@ This module contains the program for the entry point of the command interpreter
 """
 
 import cmd 
-from models.engine.files_storage import FileStorage
+from models.engine.file_storage import FileStorage
 
 storage = FileStorage() 
 
