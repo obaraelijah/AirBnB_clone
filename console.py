@@ -8,6 +8,7 @@ import cmd
 from models.engine.file_storage import FileStorage
 from models.user import User
 from models.base_model import BaseModel
+from models.state import State
 
 storage = FileStorage() 
 
@@ -19,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
     """
     
     prompt = '(hbnb)'
-    class_present=['User', 'BaseModel']
+    class_present=['User', 'BaseModel', 'State']
     
     def do_quit(self, arg):
         """
