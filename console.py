@@ -6,6 +6,8 @@ This module contains the program for the entry point of the command interpreter
 
 import cmd 
 from models.engine.file_storage import FileStorage
+from models.user import User
+from models.base_model import BaseModel
 
 storage = FileStorage() 
 
@@ -17,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
     """
     
     prompt = '(hbnb)'
-    class_present=[]
+    class_present=['User', 'BaseModel']
     
     def do_quit(self, arg):
         """
