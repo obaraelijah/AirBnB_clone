@@ -5,6 +5,9 @@ This module contains the program for the entry point of the command interpreter
 """
 
 import cmd 
+from models.engine.files_storage import FileStorage
+
+storage = FileStorage() 
 
 
 class HBNBCommand(cmd.Cmd):
@@ -51,6 +54,13 @@ class HBNBCommand(cmd.Cmd):
         inst = eval(args[0])()
         inst.save()
         print(inst.id)
+        
+    def check_not_id(id):
+        current_inst = storage.all()
+        for keys, values in current_inst.items():
+            if values['id'] == id:
+                return False
+        return True
         
         
     def do_show(self, arg):
@@ -122,6 +132,95 @@ class HBNBCommand(cmd.Cmd):
                         str_all.append(inst.__str__())
         print(str_all)
         
-    
-if __name__ == '__manin__':
+    def do_update(self, arg):
+        """
+         Updates an instance based on the class name
+         and id by adding or updating attribute
+         (save the change into the JSON file).
+         Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
+        """
+        args = list(arg.split())
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in HBNBCommand.class_present:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        elif HBNBCommand.check_not_id(args[1]):
+            print("** no instance found **")
+        elif len(args) == 2:
+            print("** attribute name missing **")
+        elif len(args) == 3:
+            print("** value missing **")
+        else:
+            key = args[0] + '.' + args[1]
+            value = args[3]
+            if value[0] == '"' and value[-1] == '"':
+                value = value[1:-1]
+            if value.isdigit():
+                value = int(value)
+                # elif value.isfloat():
+                #    value = float(value)
+            storage.all()[key][args[2]] = value
+            instance = storage.all()[key]
+            inst = eval(args[0])(**instance)
+            inst.save()
+            storage.all()[key]['updated_at'] = inst.updated_at.isoformat()
+            storage.save()
+        
+    def count(self, arg):
+        """
+         counts and the number of instances
+         of a class.
+        """
+        instances = storage.all().copy()
+        num_inst = 0
+        args = list(arg.split())
+        if len(args) == 0:
+            print("** class name missing **")
+        else:
+            if args[0] not in HBNBCommand.class_present:
+                print("** class doesn't exist **")
+                return
+            else:
+                for a_class, info in instances.items():
+                    if info['__class__'] == args[0]:
+                        num_inst += 1
+        print(num_inst)
+        
+        
+    def default(self, arg):
+            """
+            This method deals with the following commands
+            <class name>.all(),
+            <class name>.count(),
+            <class name>.show(<id>),
+            <class name>.destroy(<id>),
+            <class name>.update(<id>, <attribute name>, <attribute value>),
+            <class name>.update(<id>, <dictionary representation>).
+            """
+            if "." not in arg or "(" not in arg or len(arg) < 10:
+                print("** command not found **" )
+                return
+
+            args = arg.split(".")
+            brace_idx = args[1].index('(')
+            cmds = args[1][:brace_idx]
+            arg = args[1].split("(")
+            arg = arg[1][:-1]
+            arg_line = arg.split(", ")
+            argv = ""
+            if len(arg_line) != 0:
+                for a in arg_line:
+                    if not a.isdigit():
+                        a = a[1:-1]
+                    argv += a + " "
+            if cmds == "count":
+                self.count(args[0] + " " + argv)
+                return
+
+            eval("self.do_" + cmds)(args[0] + " " + argv)
+
+
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
