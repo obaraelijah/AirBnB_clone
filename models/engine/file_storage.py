@@ -8,8 +8,6 @@ import os.path
 import json
 import copy
 
-
-
 class FileStorage:
     """
     This class serializes instances or objects to a JSON file and deserializes JSON file to instances or objects,
@@ -63,7 +61,7 @@ class FileStorage:
         with open(FileStorage.__file_path, 'w', encoding='UTF-8') as fd:
             fd.write(js_str)
             
-            
+                 
     def reload(self):
         """
         Desirealizes the JSON file to __objects
