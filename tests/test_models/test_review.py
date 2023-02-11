@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Test Place"""
+"""Test Review"""
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
@@ -10,15 +10,14 @@ import pep8
 import unittest
 
 
-class Testplace(unittest.TestCase):
+class Testreview(unittest.TestCase):
     """
-    Unittests for the Place class.
+    Unittests for the Review class.
     """
-
-    def test_pep8_conformance_place(self):
+    def test_pep8_conformance_review(self):
         """Test that we conform to PEP8."""
         pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['models/place.py'])
+        result = pep8style.check_files(['models/review.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
@@ -26,12 +25,12 @@ class Testplace(unittest.TestCase):
         """
         Tests if class is named correctly.
         """
-        place1 = Place()
-        self.assertEqual(place1.__class__.__name__, "Place")
+        rev1 = Review()
+        self.assertEqual(rev1.__class__.__name__, "Review")
 
     def test_father(self):
         """
         Tests if Class inherits from BaseModel.
         """
-        place1 = Place()
-        self.assertTrue(issubclass(place1.__class__, BaseModel))
+        rev1 = Review()
+        self.assertTrue(issubclass(rev1.__class__, BaseModel))

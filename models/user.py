@@ -1,25 +1,23 @@
 #!/usr/bin/python3
-"""
-Model provides the class user
+
+"""User Module
+This Module inherits from BaseModel class.
+User Module contains the user information.
 """
 
-from models import base_model
+from models.base_model import BaseModel
 
-class User(base_model.BaseModel):
+
+class User(BaseModel):
+    """User Class
+    Attributes:
+        email (str): The User email
+        password (str): The User password
+        first_name (str): The first name of the User
+        last_name (str): The last name of the User
     """
-    class user that inherits from basemodel
-    """
-    
-    email = ""
-    password = ""
-    first_name = ""
-    last_name = ""
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-    
-    """
-    super() method is called to invoke the constructor of the parent class (BaseModel). This is done to ensure that the attributes and methods of the BaseModel class are also available to the User class. The *args 
-    and **kwargs parameters allow for any additional arguments to be passed to the constructor.
-    """ 
+    email = ''
+    password = ''
+    first_name = ''
+    last_name = ''
     

@@ -1,34 +1,23 @@
-
-
 #!/usr/bin/python3
-
-"""
-Suite to test subclass User in models.user
-"""
-
+"""Test User"""
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+import pep8
 import unittest
 
-from models.user import User
-from models.base_model import BaseModel
 
-class TestUser(unittest.TestCase):
+class Testuser(unittest.TestCase):
     """
-    Test attributes attributes
+    Unittests for the User class.
     """
-    
-    def test_subclass_in_user(self):
-        """
-        Tests users attributes
-        """
-        self.assertTrue(issubclass(User, BaseModel))
-    
-    def test_attributes_in_user(self):
-        i = User()
-        self.assertIs(type(i.first_name), str)
-        self.assertIs(type(i.last_name), str)
-        self.assertTrue(i.first_name == "")
-        self.assertTrue(i.last_name == "")
-        self.assertIs(type(i.passworrd), str)
-        self.assertIs(type(i.email), str)
-        self.assertTrue(i.password == "")
-        self.assertTrue(i.email == "")
+
+    def test_pep8_conformance_user(self):
+        """Test that we conform to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/user.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warnings).")

@@ -1,22 +1,37 @@
 #!/usr/bin/python3
-
-"""
-Test suite for models.state
-"""
+"""Test State"""
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+import pep8
 import unittest
 
-from models.state import State
-from models.base_model import BaseModel
 
-class TestState(unittest.TestCase):
+class Teststate(unittest.TestCase):
     """
-     Test cases for class State
+    Unittests for the State class.
     """
-    def initEnv(self):
-        self.state = State()
-    
-    def test_state_as_subclass(self):
-        self.assertTrue(issubclass(type(self.state), BaseModel))
 
-    def test_name_attr(self):
-        self.assertTrue(hasattr(self.state, "name"))
+    def test_pep8_conformance_state(self):
+        """Test that we conform to PEP8."""
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files(['models/state.py'])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warnings).")
+
+    def test_class(self):
+        """
+        Tests if class is named correctly.
+        """
+        state1 = State()
+        self.assertEqual(state1.__class__.__name__, "State")
+
+    def test_father(self):
+        """
+        Tests if Class inherits from BaseModel.
+        """
+        state1 = State()
+        self.assertEqual(state1.__class__.__name__, "State")

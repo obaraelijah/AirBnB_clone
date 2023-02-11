@@ -1,77 +1,68 @@
- #!/usr/bin/python3
-
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+"""File Storage Module
+This module is in charge of the storage of the
+classes and their management.
 """
-Module provides class FilseStorage
-"""
 
-import os.path
 import json
-import copy
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
+from os import path
+
 
 class FileStorage:
+    """File Storage Class
+    This is the File Storage module.
+    Attributes:
+        __file_path (str): This is the path of the JSON file in which
+            the contents of the `__objects` variable will be stored.
+        __objects (dict): This store all the instances data
     """
-    This class serializes instances or objects to a JSON file and deserializes JSON file to instances or objects,
-    """
-    
-    __file_path = "file.json"
+    __file_path = 'objects.json'
     __objects = {}
-    
 
-    
     def all(self):
+        """Gets the __objects info
+        Returns the content of the `__objects` class attribute.
         """
-        Returns the dictionary __objects
-        return a shallow copy of the __objects dictionary, to prevent the caller from modifying the original dictionary. 
-        """
-        
-        return copy.copy(FileStorage.__objects)
-    
+        return self.__objects
+
     def new(self, obj):
+        """Saves a new object in the `__objects` class attribute
+        Args:
+            obj (inst): The object to adds in the `__objects` class attribute
+        Sets in the `__objects` class attribute the instance data
+        with a key as <obj class name>.id.
         """
-        sets in __objects the obj with key <obj class name>.id
-        """
-        if obj is None:
-            raise TypeError("obj is None")
-        cls_name = type(obj).__name__
-        """
-        creates a string called "cls_name" which is set to the class name of the input object (obj) using type(obj).__name__
-        """
-        idd = obj.id
-        """
-        retrieves the "id" attribute of the object (obj.id) and creates a string called "idd" to stor
-        """ 
-        key = str(cls_name) + '.' + str(idd)
-        """
-         creates a key string by concatenating "cls_name" and "idd" with a dot separator
-        """
-        FileStorage.__objects[key] = obj.to_dict()
-        """
-        method stores the object in the "__objects" dictionary using the key string as the key and the result of calling obj.to_dict() as the value
-        """
-        
-        
+        key = obj.__class__.__name__ + '.' + obj.id
+        self.__objects[key] = obj
+
     def save(self):
+        """Serializes the content of `__objects` class attribute
+        The content of `__objects` class attribute will be serialized
+        to the path of `__file_path` class attribute in JSON format
+        with the `created_at` and `updated_at` formatted.
         """
-        serializes __objects to JSON file
-        """
-        js_str = json.dumps(FileStorage.__objects)
-        """
-        using the json.dumps function to convert the "__objects" dictionary to a JSON-formatted string (stored in the variable "js_str")
-        """
-        with open(FileStorage.__file_path, 'w', encoding='UTF-8') as fd:
-            fd.write(js_str)
-            
-                 
+        json_dict = {}
+        for k, v in self.__objects.items():
+            json_dict[k] = v.to_dict()
+        with open(self.__file_path, mode='w', encoding='utf-8') as f:
+            f.write(json.dumps(json_dict))
+
     def reload(self):
+        """Deserializes the JSON file in `__file_path` class attribute
+        If the file on `__file_path` class attribute exists, each object
+        on the file will be deserialized and appended to the `__objects`
+        class attribute like an instance with the object data.
         """
-        Desirealizes the JSON file to __objects
-        """
-        if os.path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, encoding="UTF-8") as fd:
-                js_str = fd.read()
-            FileStorage.__objects = json.loads(js_str)
-        else:
-            print("The file does not exist")
-            
-        """uses the json.loads function  parse the contents of "js_str" into a dictionary and store it in the "__objects" instance variable. This effectively reloads the deserialized data into the "__objects" dictionary
-        """
+        if path.exists(self.__file_path):
+            with open(self.__file_path, mode='r', encoding='utf-8') as f:
+                json_dict = json.loads(f.read())
+                for k, v in json_dict.items():
+                    self.__objects[k] = eval(v['__class__'])(**v)
