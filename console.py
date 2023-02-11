@@ -13,7 +13,7 @@ class HBNBCommand(cmd.Cmd):
 
     """Class for the command interpreter."""
 
-    prompt = "(hbnb) "
+    prompt = "(hbnb)"
 
     def default(self, line):
         """Catch commands if nothing else matches then."""
