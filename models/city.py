@@ -16,5 +16,5 @@ class City(BaseModel):
         state_id (str): The UUID of the State the City belongs to
         name (str): The City name
     """
-    state_id = ''
-    name = ''
+    state_id = ""
+    name = ""

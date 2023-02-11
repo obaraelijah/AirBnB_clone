@@ -14,4 +14,4 @@ class State(BaseModel):
     Attributes:
         name (str): The State name
     """
-    name = ''
+    name = ""
